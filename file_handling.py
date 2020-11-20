@@ -1,4 +1,13 @@
+
+
 def import_data(filename='albums_data.txt'):
+    try:
+        with open(filename, "r") as file:
+            lines = file.readlines()
+        return [element.replace("\n", "").split(",") for element in lines]
+    except IOError as error:
+        return error
+
     """
     Import data from a file to a list. Expected returned data format:
         ["David Bowie", "Low", "1977", "rock", "38:26"],
