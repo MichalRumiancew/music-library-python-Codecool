@@ -2,7 +2,7 @@ import unittest
 import test_helpers
 
 from file_handling import import_data, export_data
-# from music_reports import get_albums_by_genre, get_genre_stats, get_last_oldest, get_last_oldest_of_genre, get_longest_album, get_total_albums_length
+from music_reports import get_albums_by_genre, get_genre_stats, get_last_oldest, get_last_oldest_of_genre, get_longest_album, get_total_albums_length
 
 
 class BasicTestCase(unittest.TestCase):

@@ -1,3 +1,22 @@
+ARTIST_NAME = 0
+ALBUM_NAME = 1
+RELEASE_YEAR = 2
+GENRE = 3
+LENGTH = 4
+
+
+def get_genre_stats(albums):
+    pass
+
+
+def get_last_oldest(albums):
+    pass
+
+
+def get_last_oldest_of_genre(albums, genre):
+    pass
+
+
 def get_albums_by_genre(albums, genre):
     """
     Get albums by genre
@@ -8,6 +27,11 @@ def get_albums_by_genre(albums, genre):
     :returns: all albums of given genre
     :rtype: list
     """
+    albums_genres = list(set([album[GENRE] for album in albums]))
+    if genre not in albums_genres:
+        raise ValueError("Wrong genre")
+    specific_genre_albums = [album for album in albums if album[GENRE] == genre]
+    return specific_genre_albums
 
 
 def get_longest_album(albums):
@@ -19,6 +43,10 @@ def get_longest_album(albums):
     :returns: longest album
     :rtype: list
     """
+    longest_album_value = max([float(album[LENGTH].replace(":", ".")) for album in albums])
+    for index, album in enumerate(albums):
+        if float(album[LENGTH].replace(":", ".")) == longest_album_value:
+            return albums[index]
 
 
 def get_total_albums_length(albums):
@@ -29,3 +57,13 @@ def get_total_albums_length(albums):
     :returns: total albums' length in minutes
     :rtype: float
     """
+    # albums_length = [float(album[LENGTH].replace(":", ".")[3:])/60 for album in albums]
+    albums_length = []
+    for album in albums:
+        album = album[LENGTH].split(":")
+        album_minutes = float(album[0])
+        album_seconds = float(album[1])/60
+        album_length = album_minutes + album_seconds
+        albums_length.append(album_length)
+        total_length = sum(albums_length)
+    return round(total_length, 2)

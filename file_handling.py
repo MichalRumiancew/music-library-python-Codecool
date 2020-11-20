@@ -1,13 +1,4 @@
-
-
 def import_data(filename='albums_data.txt'):
-    try:
-        with open(filename, "r") as file:
-            lines = file.readlines()
-        return [element.replace("\n", "").split(",") for element in lines]
-    except IOError as error:
-        return error
-
     """
     Import data from a file to a list. Expected returned data format:
         ["David Bowie", "Low", "1977", "rock", "38:26"],
@@ -19,6 +10,13 @@ def import_data(filename='albums_data.txt'):
     :returns: list of lists representing albums' data
     :rtype: list
     """
+    try:
+        with open(filename, "r") as file:
+            lines = file.readlines()
+        return [element.replace("\n", "").split(",") for element in lines]
+    except IOError as error:
+        return error
+
 
 def export_data(albums, filename='albums_data.txt', mode='a'):
     """
@@ -33,4 +31,15 @@ def export_data(albums, filename='albums_data.txt', mode='a'):
     :raises ValueError: if mode other than 'w' or 'a' was given. Error message:
         'Wrong write mode'
     """
-
+    modes = ["w", "a"]
+    if mode in modes:
+        try:
+            with open(filename, mode) as file:
+                for album in albums:
+                    row = ",".join(album)
+                    file.write(row + "\n")
+            return "Process completed!"
+        except ValueError as error:
+            return error
+    else:
+        raise ValueError("Wrong write mode!")
